@@ -3,7 +3,7 @@
 use Customer\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
-Route::group(['prefix' => 'api/customers/','middleware' => ['api']], function () {
+Route::group(['prefix' => 'api/customers/', 'middleware' => ['api']], function () {
 
     Route::get('/index', [CustomerController::class, 'index'])->name('customers.index');
     Route::post('/store', [CustomerController::class, 'store'])->name('customers.store');

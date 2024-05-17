@@ -5,7 +5,6 @@ namespace Console;
 use Customer\Models\Customer;
 use EventSource\Database\Seeders\SettingSeeder;
 use EventSource\Enums\ActionEnum;
-use EventSource\Models\EventSource;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Symfony\Component\Uid\Ulid;
 use Tests\TestCase;
@@ -26,9 +25,9 @@ class CustomerActionConsoleTest extends TestCase
             'dateOfBirth' => '1990-01-01',
             'phoneNumber' => '1-425-280-7778',
             'email' => 'mohamadalinzm@gmail.com',
-            'bankAccountNumber' => '3589136294099440'
-            ])
-        ->assertOk();
+            'bankAccountNumber' => '3589136294099440',
+        ])
+            ->assertOk();
 
         $this->post(route('customers.store'), [
             'ulid' => Ulid::generate(),
@@ -37,10 +36,9 @@ class CustomerActionConsoleTest extends TestCase
             'dateOfBirth' => '1990-01-03',
             'phoneNumber' => '1-425-280-7778',
             'email' => 'mohamadalinm@gmail.com',
-            'bankAccountNumber' => '3589136294099440'
+            'bankAccountNumber' => '3589136294099440',
         ])
             ->assertOk();
-
 
         $this->artisan('customers:handle-stored-events')
             ->assertSuccessful();
@@ -50,15 +48,15 @@ class CustomerActionConsoleTest extends TestCase
 
         $this->patch(route('customers.update-dateOfBirth'), [
             'customerId' => Customer::query()->first()->id,
-            'dateOfBirth' => '1991-01-03'
-            ])
+            'dateOfBirth' => '1991-01-03',
+        ])
             ->assertOk();
 
         $this->patch(route('customers.update-email'), [
-            'customerId' => Customer::query()->orderBy('id','desc')->first()->id,
-            'email' => 'test@test.com'
+            'customerId' => Customer::query()->orderBy('id', 'desc')->first()->id,
+            'email' => 'test@test.com',
         ])
-        ->assertOk();
+            ->assertOk();
 
         $this->artisan('customers:handle-stored-events')
             ->assertSuccessful();
@@ -68,23 +66,23 @@ class CustomerActionConsoleTest extends TestCase
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => Customer::query()->first()->id,
-            'request_body->dateOfBirth' => '1991-01-03'
+            'request_body->dateOfBirth' => '1991-01-03',
         ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
-            'request_body->customerId' => Customer::query()->orderBy('id','desc')->first()->id,
-            'request_body->email' => 'test@test.com'
+            'request_body->customerId' => Customer::query()->orderBy('id', 'desc')->first()->id,
+            'request_body->email' => 'test@test.com',
         ]);
 
         $this->delete(route('customers.destroy'), [
-            'customerId' => Customer::query()->first()->id
+            'customerId' => Customer::query()->first()->id,
         ])
-        ->assertOk();
+            ->assertOk();
         $this->delete(route('customers.destroy'), [
-            'customerId' => Customer::query()->orderBy('id','desc')->first()->id,
+            'customerId' => Customer::query()->orderBy('id', 'desc')->first()->id,
         ])
-        ->assertOk();
+            ->assertOk();
 
         $this->artisan('customers:handle-stored-events')
             ->assertSuccessful();
@@ -92,5 +90,4 @@ class CustomerActionConsoleTest extends TestCase
         $this->assertDatabaseCount('event_sources', 6);
         $this->assertDatabaseCount('customers', 0);
     }
-
 }

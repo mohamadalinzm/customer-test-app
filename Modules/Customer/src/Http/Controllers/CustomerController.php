@@ -16,7 +16,7 @@ class CustomerController extends Controller
 {
     //Seperated Read and Write Repositories and injected them in constructor
     public function __construct(protected ReadCustomerRepository $readCustomerRepository,
-                                protected EventSourceRepository $eventSourceRepository)
+        protected EventSourceRepository $eventSourceRepository)
     {
     }
 
@@ -42,7 +42,6 @@ class CustomerController extends Controller
             'action' => ActionEnum::STORE->value,
             'request_body' => $request->all(),
         ]);
-
 
         return Response::json(
             [

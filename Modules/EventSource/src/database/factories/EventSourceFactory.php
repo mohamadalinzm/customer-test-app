@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class EventSourceFactory extends Factory
 {
     protected $model = EventSource::class;
+
     /**
      * Define the model's default state.
      *
@@ -55,7 +56,7 @@ class EventSourceFactory extends Factory
         return [
             //choose random from an array of names
             'action' => $action,
-            'request_body' => $request_body
+            'request_body' => $request_body,
         ];
     }
 }

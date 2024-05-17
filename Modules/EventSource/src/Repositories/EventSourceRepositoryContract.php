@@ -7,7 +7,7 @@ use Illuminate\Support\Collection;
 
 interface EventSourceRepositoryContract
 {
-
     public function getUnhandledRequests($lastId): Collection;
-    public function store($request) : EventSource;
+
+    public function store($request): EventSource;
 }

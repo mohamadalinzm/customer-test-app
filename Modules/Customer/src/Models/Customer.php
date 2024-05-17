@@ -3,9 +3,9 @@
 namespace Customer\Models;
 
 use Customer\database\factories\CustomerFactory;
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Factories\Factory;
 
 class Customer extends Model
 {

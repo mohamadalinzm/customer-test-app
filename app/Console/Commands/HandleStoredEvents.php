@@ -26,9 +26,9 @@ class HandleStoredEvents extends Command
     protected $description = 'Create Customers based on event that record in the event_sources table';
 
     public function __construct(protected EventSourceRepositoryContract $eventSourceRepository,
-                                protected ReadCustomerRepositoryContract $readCustomerRepository,
-                                protected WriteCustomerRepositoryContract $writeCustomerRepository,
-                                protected SettingRepositoryContract $settingRepository)
+        protected ReadCustomerRepositoryContract $readCustomerRepository,
+        protected WriteCustomerRepositoryContract $writeCustomerRepository,
+        protected SettingRepositoryContract $settingRepository)
     {
         parent::__construct();
     }
@@ -40,23 +40,19 @@ class HandleStoredEvents extends Command
     {
         //read unhandled events and apply actions on customers table
         $lastId = $this->settingRepository->getLastEventId();
-        $unHandledEvents = $this->eventSourceRepository->getUnhandledRequests($lastId)->each(function($event){
+        $unHandledEvents = $this->eventSourceRepository->getUnhandledRequests($lastId)->each(function ($event) {
 
-            if ($event->action->value == ActionEnum::UPDATE->value)
-            {
+            if ($event->action->value == ActionEnum::UPDATE->value) {
                 $customer = $this->readCustomerRepository->find($event->request_body['customerId']);
                 $data = $event->request_body;
                 unset($data['customerId']);
                 $this->writeCustomerRepository->{$event->action->value}($customer, $data);
-            }elseif ($event->action->value == ActionEnum::DELETE->value)
-            {
+            } elseif ($event->action->value == ActionEnum::DELETE->value) {
                 $customer = $this->readCustomerRepository->find($event->request_body['customerId']);
                 $this->writeCustomerRepository->{$event->action->value}($customer);
-            }
-            else{
+            } else {
                 $this->writeCustomerRepository->{$event->action->value}($event->request_body);
             }
-
 
         });
 

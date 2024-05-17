@@ -26,15 +26,15 @@ class CustomerUpdateRequest extends FormRequest
         return [
             'customerId' => 'required|integer|exists:customers,id',
             //at least one of the following fields should be filled
-            'firstname' => ['sometimes','required_without_all:lastName,phoneNumber,email,dateOfBirth,bankAccountNumber','string','max:255',Rule::unique('customers')->where(function ($query) {
+            'firstname' => ['sometimes', 'required_without_all:lastName,phoneNumber,email,dateOfBirth,bankAccountNumber', 'string', 'max:255', Rule::unique('customers')->where(function ($query) {
                 return $query->where('lastname', $this->lastname)
                     ->where('dateOfBirth', $this->dateOfBirth);
             })->ignore($this->id)],
             'lastName' => 'sometimes|required_without_all:firstName,phoneNumber,email,dateOfBirth,bankAccountNumber|string|max:255',
             'dateOfBirth' => 'sometimes|required_without_all:firstName,lastName,phoneNumber,email,bankAccountNumber|date',
             'phoneNumber' => 'sometimes|required_without_all:firstName,lastName,email,dateOfBirth,bankAccountNumber|string|phone:US,IR',
-            'email' => ['sometimes','required_without_all:lastName,phoneNumber,firstName,dateOfBirth,bankAccountNumber','email','max:255',Rule::unique('customers')->ignore($this->customerId)],
-            'bankAccountNumber' => ['sometimes','required_without_all:lastName,phoneNumber,email,dateOfBirth,bankAccountNumber','string' ,new CardNumber],
+            'email' => ['sometimes', 'required_without_all:lastName,phoneNumber,firstName,dateOfBirth,bankAccountNumber', 'email', 'max:255', Rule::unique('customers')->ignore($this->customerId)],
+            'bankAccountNumber' => ['sometimes', 'required_without_all:lastName,phoneNumber,email,dateOfBirth,bankAccountNumber', 'string', new CardNumber],
         ];
     }
 }

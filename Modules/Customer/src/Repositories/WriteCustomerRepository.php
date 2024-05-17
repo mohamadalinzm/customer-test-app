@@ -2,13 +2,11 @@
 
 namespace Customer\Repositories;
 
-use Illuminate\Support\Facades\DB;
 use Customer\Models\Customer;
 use Symfony\Component\Uid\Ulid;
 
 class WriteCustomerRepository implements WriteCustomerRepositoryContract
 {
-
     public function store(array $request): ?Customer
     {
         return Customer::create([
@@ -18,11 +16,11 @@ class WriteCustomerRepository implements WriteCustomerRepositoryContract
             'dateOfBirth' => $request['dateOfBirth'],
             'phoneNumber' => $request['phoneNumber'],
             'email' => $request['email'],
-            'bankAccountNumber' => $request['bankAccountNumber']
+            'bankAccountNumber' => $request['bankAccountNumber'],
         ]);
     }
 
-    public function update(Customer $customer,array $request): bool
+    public function update(Customer $customer, array $request): bool
     {
         return $customer->update($request);
     }

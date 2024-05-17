@@ -24,14 +24,12 @@ class CustomerServiceProvider extends \Illuminate\Support\ServiceProvider
             );
         }
 
-
     }
 
     public function boot()
     {
-        $this->loadRoutesFrom(__DIR__ . '/routes/api.php');
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
+        $this->loadRoutesFrom(__DIR__.'/routes/api.php');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations');
 
     }
-
 }

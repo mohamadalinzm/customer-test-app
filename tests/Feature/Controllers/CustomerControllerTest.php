@@ -31,7 +31,7 @@ class CustomerControllerTest extends TestCase
         //arrange
         $customer = Customer::factory()->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertOk()
             ->assertJson([
@@ -41,7 +41,7 @@ class CustomerControllerTest extends TestCase
             ]);
 
         $this->assertDatabaseCount('event_sources', 1);
-        $this->assertDatabaseHas('event_sources',[
+        $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::STORE->value,
             'request_body->ulid' => $customer['ulid'],
             'request_body->firstname' => $customer['firstname'],
@@ -49,7 +49,7 @@ class CustomerControllerTest extends TestCase
             'request_body->dateOfBirth' => $customer['dateOfBirth'],
             'request_body->phoneNumber' => $customer['phoneNumber'],
             'request_body->email' => $customer['email'],
-            'request_body->bankAccountNumber' => $customer['bankAccountNumber']
+            'request_body->bankAccountNumber' => $customer['bankAccountNumber'],
         ]);
     }
 
@@ -86,20 +86,20 @@ class CustomerControllerTest extends TestCase
         //act
         $response = $this->patch(route('customers.update-lastname'), [
             'customerId' => $customer->id,
-            'lastname' => $lastname
+            'lastname' => $lastname,
         ]);
         //assert
         $response->assertOk()
             ->assertJson([
                 'status' => true,
                 'data' => $customer->ulid,
-                'message' => 'Customer updated successfully.'
+                'message' => 'Customer updated successfully.',
             ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => $customer->id,
-            'request_body->lastname' => $lastname
+            'request_body->lastname' => $lastname,
         ]);
     }
 
@@ -111,20 +111,20 @@ class CustomerControllerTest extends TestCase
         //act
         $response = $this->patch(route('customers.update-dateOfBirth'), [
             'customerId' => $customer->id,
-            'dateOfBirth' => $dateOfBirth
+            'dateOfBirth' => $dateOfBirth,
         ]);
         //assert
         $response->assertOk()
             ->assertJson([
                 'status' => true,
                 'data' => $customer->ulid,
-                'message' => 'Customer updated successfully.'
+                'message' => 'Customer updated successfully.',
             ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => $customer->id,
-            'request_body->dateOfBirth' => $dateOfBirth
+            'request_body->dateOfBirth' => $dateOfBirth,
         ]);
     }
 
@@ -136,20 +136,20 @@ class CustomerControllerTest extends TestCase
         //act
         $response = $this->patch(route('customers.update-phoneNumber'), [
             'customerId' => $customer->id,
-            'phoneNumber' => $phoneNumber
+            'phoneNumber' => $phoneNumber,
         ]);
         //assert
         $response->assertOk()
             ->assertJson([
                 'status' => true,
                 'data' => $customer->ulid,
-                'message' => 'Customer updated successfully.'
+                'message' => 'Customer updated successfully.',
             ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => $customer->id,
-            'request_body->phoneNumber' => $phoneNumber
+            'request_body->phoneNumber' => $phoneNumber,
         ]);
     }
 
@@ -168,13 +168,13 @@ class CustomerControllerTest extends TestCase
             ->assertJson([
                 'status' => true,
                 'data' => $customer->ulid,
-                'message' => 'Customer updated successfully.'
+                'message' => 'Customer updated successfully.',
             ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => $customer->id,
-            'request_body->email' => $email
+            'request_body->email' => $email,
         ]);
     }
 
@@ -186,20 +186,20 @@ class CustomerControllerTest extends TestCase
         //act
         $response = $this->patch(route('customers.update-bankAccountNumber'), [
             'customerId' => $customer->id,
-            'bankAccountNumber' => $bankAccountNumber
+            'bankAccountNumber' => $bankAccountNumber,
         ]);
         //assert
         $response->assertOk()
             ->assertJson([
                 'status' => true,
                 'data' => $customer->ulid,
-                'message' => 'Customer updated successfully.'
+                'message' => 'Customer updated successfully.',
             ]);
 
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::UPDATE->value,
             'request_body->customerId' => $customer->id,
-            'request_body->bankAccountNumber' => $bankAccountNumber
+            'request_body->bankAccountNumber' => $bankAccountNumber,
         ]);
     }
 
@@ -208,7 +208,7 @@ class CustomerControllerTest extends TestCase
         //arrange
         $customer = Customer::factory()->create();
         //act
-        $response = $this->delete(route('customers.destroy'),['customerId' => $customer->id]);
+        $response = $this->delete(route('customers.destroy'), ['customerId' => $customer->id]);
         //assert
         $response->assertOk()
             ->assertJson([
@@ -217,9 +217,9 @@ class CustomerControllerTest extends TestCase
                 'message' => 'Customer deleted successfully.',
             ]);
 
-        $this->assertDatabaseHas('event_sources',[
+        $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::DELETE->value,
-            'request_body->customerId' => $customer->id
+            'request_body->customerId' => $customer->id,
         ]);
     }
 
@@ -230,7 +230,7 @@ class CustomerControllerTest extends TestCase
             'email' => 'invalid-email',
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('email');
@@ -243,7 +243,7 @@ class CustomerControllerTest extends TestCase
             'email' => null,
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('email');
@@ -256,7 +256,7 @@ class CustomerControllerTest extends TestCase
             'phoneNumber' => 'invalid-phone-number',
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('phoneNumber');
@@ -269,7 +269,7 @@ class CustomerControllerTest extends TestCase
             'phoneNumber' => null,
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('phoneNumber');
@@ -282,7 +282,7 @@ class CustomerControllerTest extends TestCase
             'dateOfBirth' => 'invalid-dateOfBirth',
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('dateOfBirth');
@@ -295,7 +295,7 @@ class CustomerControllerTest extends TestCase
             'dateOfBirth' => null,
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('dateOfBirth');
@@ -308,7 +308,7 @@ class CustomerControllerTest extends TestCase
             'bankAccountNumber' => 'invalid-card-number',
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('bankAccountNumber');
@@ -321,7 +321,7 @@ class CustomerControllerTest extends TestCase
             'bankAccountNumber' => null,
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('bankAccountNumber');
@@ -336,7 +336,7 @@ class CustomerControllerTest extends TestCase
             'dateOfBirth' => '04/30/2024',
         ])->make()->toArray();
         //act
-        $response = $this->post(route('customers.store'),$customer);
+        $response = $this->post(route('customers.store'), $customer);
         //assert
         $response->assertStatus(302)
             ->assertInvalid('firstname');

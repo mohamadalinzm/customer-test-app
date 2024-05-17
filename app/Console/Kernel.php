@@ -13,7 +13,7 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule): void
     {
         //Apply actions on customers table based on unhandled events that record in the event_sources table
-         $schedule->command('customers:handle-stored-events')->everyMinute();
+        $schedule->command('customers:handle-stored-events')->everyMinute();
     }
 
     /**

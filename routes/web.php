@@ -2,7 +2,6 @@
 
 use App\Ref\CreateProductCommand;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\App;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,16 +18,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
 Route::get('/ref', function () {
-
-
-
 
     $command = new CreateProductCommand('mamad', 'ali');
     $commandBus = new \App\Ref\CommandBusNew();
     $commandBus->handle($command);
 
-//    dd($command);
+    //    dd($command);
 });

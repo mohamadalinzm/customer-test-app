@@ -9,6 +9,7 @@ use Tests\TestCase;
 class CustomerTest extends TestCase
 {
     use RefreshDatabase;
+
     /**
      * A basic Database test.
      */
@@ -18,7 +19,6 @@ class CustomerTest extends TestCase
 
         Customer::query()->create($data);
 
-        $this->assertDatabaseHas('customers',$data);
+        $this->assertDatabaseHas('customers', $data);
     }
-
 }

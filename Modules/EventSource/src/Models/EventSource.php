@@ -30,5 +30,4 @@ class EventSource extends Model
     {
         return EventSourceFactory::new();
     }
-
 }

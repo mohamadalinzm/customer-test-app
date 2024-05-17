@@ -3,8 +3,6 @@
 namespace Customer\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
-use LVR\CreditCard\CardNumber;
 
 class CustomerDeleteRequest extends FormRequest
 {

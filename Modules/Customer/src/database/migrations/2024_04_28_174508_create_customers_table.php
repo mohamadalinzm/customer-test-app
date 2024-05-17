@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('bankAccountNumber');
             $table->timestamps();
 
-            $table->unique(['firstname', 'lastname','dateOfBirth']);
+            $table->unique(['firstname', 'lastname', 'dateOfBirth']);
         });
     }
 

@@ -25,7 +25,7 @@ class CustomerStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firstname' => ['required','string',Rule::unique('customers')->where(function ($query) {
+            'firstname' => ['required', 'string', Rule::unique('customers')->where(function ($query) {
                 return $query->where('lastname', $this->lastname)
                     ->where('dateOfBirth', $this->dateOfBirth);
             })],
@@ -33,14 +33,14 @@ class CustomerStoreRequest extends FormRequest
             'dateOfBirth' => 'required|string|date',
             'phoneNumber' => 'required|string|phone:US,IR',
             'email' => 'required|email',
-            'bankAccountNumber' => ['required','string',new CardNumber]
+            'bankAccountNumber' => ['required', 'string', new CardNumber],
         ];
     }
 
     public function messages(): array
     {
         return [
-            'firstname.unique' => 'A customer with the same first name, last name, and date of birth already exists.'
+            'firstname.unique' => 'A customer with the same first name, last name, and date of birth already exists.',
         ];
     }
 }

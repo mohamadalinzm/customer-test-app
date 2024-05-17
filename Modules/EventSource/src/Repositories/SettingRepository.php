@@ -2,13 +2,10 @@
 
 namespace EventSource\Repositories;
 
-use EventSource\Models\EventSource;
 use EventSource\Models\Setting;
-use ReflectionClass;
 
 class SettingRepository implements SettingRepositoryContract
 {
-
     //Get last event id from settings table
     public function getLastEventId(): int
     {
@@ -25,7 +22,7 @@ class SettingRepository implements SettingRepositoryContract
     }
 
     //update last event id on settings table
-    public function update($request) : int
+    public function update($request): int
     {
         return Setting::query()
             ->where('key', $request['key'])

@@ -11,8 +11,8 @@ use Symfony\Component\Uid\Ulid;
  */
 class CustomerFactory extends Factory
 {
-
     protected $model = Customer::class;
+
     /**
      * Define the model's default state.
      *
