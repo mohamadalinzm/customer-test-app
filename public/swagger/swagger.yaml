@@ -1,0 +1,375 @@
+openapi: 3.0.3
+info:
+  title: Customer CRUD
+  description: |-
+    This is a document for the test task for Customer CRUD Management.
+
+    _If you're looking for more details about task click [here](https://github.com/mason-chase/crud-test-laravel).
+
+  contact:
+    email: mohamadalinzm@gmail.com
+  version: 1.0.0
+
+servers:
+  - url: http://127.0.0.1:8000/api
+tags:
+  - name: customer
+    description: Customer CRUD
+paths:
+  /customers/index:
+    get:
+      tags:
+        - customer
+      summary: List of an existing customers
+      description: List of an existing customers
+      operationId: updatePet
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Customer'
+        '400':
+          description: Bad Request
+        '404':
+          description: Customers not found
+  /customers/store:
+    post:
+      tags:
+        - customer
+      summary: Create new Customer
+      operationId: createCustomer
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Customer'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid status value
+        '422':
+          description: Validation exception
+
+  /customers/update-firstname:
+    patch:
+      tags:
+        - customer
+      summary: Update customer firstname
+      operationId: customerUpdateFirstname
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                firstname:
+                  type: string
+                  example: 'John'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+  /customers/update-lastname:
+    patch:
+      tags:
+        - customer
+      summary: Update customer lastname
+      operationId: customerUpdateLastname
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                lastname:
+                  type: string
+                  example: 'Doe'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+  /customers/update-dateOfBirth:
+    patch:
+      tags:
+        - customer
+      summary: Update customer date of birth
+      operationId: customerUpdateDateOfBirth
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                dateOfBirth:
+                  type: string
+                  format: date-time
+                  example: '04/30/1990'
+
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+  /customers/update-phoneNumber:
+    patch:
+      tags:
+        - customer
+      summary: Update customer phoneNumber
+      operationId: customerUpdatePhoneNumber
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                phoneNumber:
+                  type: string
+                  example: '1-425-280-7778'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+  /customers/update-email:
+    patch:
+      tags:
+        - customer
+      summary: Update customer email
+      operationId: customerUpdateEmail
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                email:
+                  type: string
+                  example: 'mohamadalinzm@gmail.com'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+  /customers/update-bankAccountNumber:
+    patch:
+      tags:
+        - customer
+      summary: Update customer bank account number
+      operationId: customerUpdateBankAccountNumber
+      requestBody:
+        description: Created user object
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customerId:
+                  type: integer
+                  format: int64
+                  example: 1
+                bankAccountNumber:
+                  type: string
+                  example: '3589136294099440'
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid tag value
+        '422':
+          description: Validation exception
+
+  /customers/destroy:
+    delete:
+      tags:
+        - customer
+      summary: Delete customer by id
+      description: Destroy a single customer
+      operationId: getPetById
+      parameters:
+        - name: customerId
+          in: query
+          description: customer id
+          required: true
+          schema:
+            type: integer
+            format: int64
+            example: 1
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Customer not found
+        '422':
+          description: Validation exception
+
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        firstname:
+          type: string
+          example: 'John'
+        lastname:
+          type: string
+          example: 'Doe'
+        email:
+          type: string
+          example: 'johndoe@gmail.com'
+        dateOfBirth:
+          type: string
+          format: date-time
+          example: '04/30/1990'
+        phoneNumber:
+          type: string
+          example: '1-425-280-7778'
+        bankAccountNumber:
+          type: string
+          example: '3589136294099440'
+      xml:
+        name: customer
+    EventSource:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        action:
+          type: string
+          description: event action
+          example: store
+          enum:
+            - STORE
+            - UPDATE
+            - DELETE
+        request_body:
+          type: string
+          example:
+            lastname: John
+            firstname: Doe
+            dateOfBirth: 04/30/2024
+            phoneNumber: 1-425-280-7778
+            email: johndoe@gmail.com
+            bankAccountNumber: '3589136294099440'
+        created_at:
+          type: string
+          format: date-time
+      xml:
+        name: event
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: boolean
+        data:
+          type: string
+          example: '01HY0N1H98HHXGDZP8P504ZDB7'
+        message:
+          type: string
+          example: 'Customer created successfully.'
+      xml:
+        name: '##default'
+  requestBodies:
+    Customer:
+      description: Add new Customer
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+        application/xml:
+          schema:
+            $ref: '#/components/schemas/Customer'
+    EventSource:
+      description: Stored Events
+      content:
+        application/json:
+          schema:
+            type: array
+            items:
+              $ref: '#/components/schemas/EventSource'

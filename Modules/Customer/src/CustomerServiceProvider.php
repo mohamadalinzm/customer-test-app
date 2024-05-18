@@ -2,6 +2,7 @@
 
 namespace Customer;
 
+use Customer\Console\Commands\HandleStoredEvents;
 use Customer\Repositories\ReadCustomerRepository;
 use Customer\Repositories\ReadCustomerRepositoryContract;
 use Customer\Repositories\WriteCustomerRepository;
@@ -30,6 +31,9 @@ class CustomerServiceProvider extends \Illuminate\Support\ServiceProvider
     {
         $this->loadRoutesFrom(__DIR__.'/routes/api.php');
         $this->loadMigrationsFrom(__DIR__.'/database/migrations');
+        $this->commands([
+            HandleStoredEvents::class,
+        ]);
 
     }
 }

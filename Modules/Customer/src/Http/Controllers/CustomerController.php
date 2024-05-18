@@ -11,6 +11,7 @@ use EventSource\Enums\ActionEnum;
 use EventSource\Repositories\EventSourceRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Response;
+use Symfony\Component\Uid\Ulid;
 
 class CustomerController extends Controller
 {
@@ -40,7 +41,7 @@ class CustomerController extends Controller
         //create record for store customer in event_sources table
         $event = $this->eventSourceRepository->store([
             'action' => ActionEnum::STORE->value,
-            'request_body' => $request->all(),
+            'request_body' => array_merge($request->all(), ['ulid' => Ulid::generate()])
         ]);
 
         return Response::json(

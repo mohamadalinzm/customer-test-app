@@ -36,14 +36,14 @@ class CustomerControllerTest extends TestCase
         $response->assertOk()
             ->assertJson([
                 'status' => true,
-                'data' => $customer['ulid'],
+                'data' => $response['data'],
                 'message' => 'Customer created successfully.',
             ]);
 
         $this->assertDatabaseCount('event_sources', 1);
         $this->assertDatabaseHas('event_sources', [
             'action' => ActionEnum::STORE->value,
-            'request_body->ulid' => $customer['ulid'],
+            'request_body->ulid' => $response['data'],
             'request_body->firstname' => $customer['firstname'],
             'request_body->lastname' => $customer['lastname'],
             'request_body->dateOfBirth' => $customer['dateOfBirth'],

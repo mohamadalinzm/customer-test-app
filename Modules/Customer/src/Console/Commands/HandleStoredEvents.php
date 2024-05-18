@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Customer\Console\Commands;
 
 use Customer\Repositories\ReadCustomerRepositoryContract;
 use Customer\Repositories\WriteCustomerRepositoryContract;

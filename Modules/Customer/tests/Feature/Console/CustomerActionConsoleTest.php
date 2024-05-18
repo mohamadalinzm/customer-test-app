@@ -15,7 +15,7 @@ class CustomerActionConsoleTest extends TestCase
 
     public function testHandleStoredEventsCommand(): void
     {
-
+        //arrange
         $this->seed(SettingSeeder::class);
         //act
         $this->post(route('customers.store'), [

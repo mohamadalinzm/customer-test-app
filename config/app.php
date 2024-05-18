@@ -1,5 +1,7 @@
 <?php
 
+use Customer\CustomerServiceProvider;
+use EventSource\EventSourceServiceProvider;
 use Illuminate\Support\Facades\Facade;
 use Illuminate\Support\ServiceProvider;
 
@@ -172,8 +174,8 @@ return [
         /*
          * Module Service Providers...
          */
-        \Customer\CustomerServiceProvider::class,
-        \EventSource\EventSourceServiceProvider::class,
+        CustomerServiceProvider::class,
+        EventSourceServiceProvider::class,
 
     ])->toArray(),
 
